@@ -6,7 +6,7 @@ Steps: {
 
 	checkout: {
 		name: "Checkout code"
-		uses: "actions/checkout@v3"
+		uses: "actions/checkout@v4"
 	}
 
 	vars: {
@@ -26,7 +26,7 @@ Steps: {
 
 	cue: {
 		install: {
-			#ver: string | *"v0.6.0"
+			#ver: string | *"v0.8.2"
 			run:  """
 			mkdir tmp
 			cd tmp
@@ -43,11 +43,11 @@ Steps: {
 		setup: {
 			#ver: string | *(string & Versions.go)
 			name: "Install Go"
-			uses: "actions/setup-go@v3"
+			uses: "actions/setup-go@v5"
 			with: "go-version": #ver
 		}
 		cache: {
-			uses: "actions/cache@v3"
+			uses: "actions/cache@v4"
 			with: {
 				path: #"""
 					~/go/pkg/mod
@@ -65,11 +65,11 @@ Steps: {
 		}
 		releaser: {
 			name: "Run GoReleaser"
-			uses: "goreleaser/goreleaser-action@v4"
+			uses: "goreleaser/goreleaser-action@v5"
 			with: {
 				// either 'goreleaser' (default) or 'goreleaser-pro'
 				distribution: "goreleaser"
-				version:      "1.19.2"
+				version:      "1.21.9"
 				workdir:      "cmd/hof"
 				args:         "release --clean -f goreleaser.yml -p 1"
 			}
@@ -83,7 +83,7 @@ Steps: {
 	buildx: {
 		qemu: {
 			name: "Set up QEMU"
-			uses: "docker/setup-qemu-action@v2"
+			uses: "docker/setup-qemu-action@v3"
 			with: {
 				platforms: "arm64"
 			}
@@ -92,7 +92,7 @@ Steps: {
 		setup: {
 			linux: {
 				name: "Set up Docker BuildX"
-				uses: "docker/setup-buildx-action@v2"
+				uses: "docker/setup-buildx-action@v3"
 			}
 			macos: {
 				name: "Set up Docker Colima"
@@ -108,7 +108,7 @@ Steps: {
 
 		login: {
 			name: "Login to Docker Hub"
-			uses: "docker/login-action@v2"
+			uses: "docker/login-action@v3"
 			with: {
 				username: "${{ secrets.HOF_DOCKER_USER }}"
 				password: "${{ secrets.HOF_DOCKER_TOKEN }}"
@@ -117,7 +117,7 @@ Steps: {
 
 		formatters: {
 			name: "Build Image"
-			uses: "docker/build-push-action@v3"
+			uses: "docker/build-push-action@v5"
 			with: {
 				context:   "formatters/tools/${{ matrix.formatter }}"
 				file:      "\(context)/Dockerfile.debian"
@@ -136,55 +136,55 @@ Steps: {
 	docker: {
 		macAction: {
 			name: "Set up Docker"
-			uses: "crazy-max/ghaction-setup-docker@v1"
+			uses: "crazy-max/ghaction-setup-docker@v3"
 			with: {
 				version: "v" + Versions.docker
 			}
 			env: {
 				SIGN_QEMU_BINARY:  "1"
-				COLIMA_START_ARGS: "--cpu 3 --memory 10 --disk 12"
+				COLIMA_START_ARGS: "--cpus 3 --memory 10 --disk 12"
 			}
 			"if": "${{ startsWith( runner.os, 'macos') }}"
 		}
-		macSetup: {
-			name: "Setup Docker on MacOS"
-			run: """
-				brew install docker
-				"""
-			_runB: """
-				brew install docker
-				brew reinstall -f --force-bottle qemu lima colima 
+		// macSetup: {
+		// 	name: "Setup Docker on MacOS"
+		// 	run: """
+		// 		brew install docker
+		// 		"""
+		// 	_runB: """
+		// 		brew install docker
+		// 		brew reinstall -f --force-bottle qemu lima colima 
 
-				# hack to codesign for entitlement
-				cat >entitlements.xml <<EOF
-				<?xml version="1.0" encoding="UTF-8"?>
-				<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-				<plist version="1.0">
-				<dict>
-						<key>com.apple.security.hypervisor</key>
-						<true/>
-				</dict>
-				</plist>
-				EOF
-				codesign --sign - --entitlements entitlements.xml --force /usr/local/bin/qemu-system-x86_64
+		// 		# hack to codesign for entitlement
+		// 		cat >entitlements.xml <<EOF
+		// 		<?xml version="1.0" encoding="UTF-8"?>
+		// 		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+		// 		<plist version="1.0">
+		// 		<dict>
+		// 				<key>com.apple.security.hypervisor</key>
+		// 				<true/>
+		// 		</dict>
+		// 		</plist>
+		// 		EOF
+		// 		codesign --sign - --entitlements entitlements.xml --force /usr/local/bin/qemu-system-x86_64
 
-				colima start --cpu 3 --memory 10 --disk 12
-				"""
+		// 		colima start --cpu 3 --memory 10 --disk 12
+		// 		"""
 
-			_run: """
-				# extra hack stuff
-				brew uninstall qemu lima colima
-				curl -OSL https://raw.githubusercontent.com/Homebrew/homebrew-core/dc0669eca9479e9eeb495397ba3a7480aaa45c2e/Formula/qemu.rb
-				brew install ./qemu.rb
-				brew install --ignore-dependencies lima colima
-				"""
-			"if": "${{ startsWith( runner.os, 'macos') }}"
-		}
+		// 	_run: """
+		// 		# extra hack stuff
+		// 		brew uninstall qemu lima colima
+		// 		curl -OSL https://raw.githubusercontent.com/Homebrew/homebrew-core/dc0669eca9479e9eeb495397ba3a7480aaa45c2e/Formula/qemu.rb
+		// 		brew install ./qemu.rb
+		// 		brew install --ignore-dependencies lima colima
+		// 		"""
+		// 	"if": "${{ startsWith( runner.os, 'macos') }}"
+		// }
 
 		macSocket: {
 			name: "Setup MacOS docker socket"
 			run: """
-				echo "DOCKER_HOST=\"unix://$HOME/.colima/default/docker.sock\"" >> $GITHUB_ENV
+				echo "DOCKER_HOST=\"unix://$HOME/.lima/docker-actions-toolkit/docker.sock\"" >> $GITHUB_ENV
 				"""
 			_run: """
 				echo "DOCKER_HOST=\"unix:///var/run/docker.sock\"" >> $GITHUB_ENV
@@ -194,7 +194,7 @@ Steps: {
 
 		login: {
 			name: "Login to Docker Hub"
-			uses: "docker/login-action@v2"
+			uses: "docker/login-action@v3"
 			with: {
 				registry: "ghcr.io"
 				username: "${{ github.actor }}"
@@ -215,7 +215,7 @@ Steps: {
 
 	dagger: {
 		cache: {
-			uses: "actions/cache@v3"
+			uses: "actions/cache@v4"
 			with: {
 				path: #"""
 					~/go/pkg/mod
