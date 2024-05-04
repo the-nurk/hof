@@ -41,7 +41,7 @@ const EvalHelpText = `
   [violet]mac note[-]       you need to set "macOptionAsMeta" to true
                  open "Preferences: Open Settings (UI)"
                  search for "macOptions" under terminal
-                 this only effects the VS Code terminal
+                 this only affects the VS Code terminal
                  other terminals may need similar changes
 
 
