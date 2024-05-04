@@ -52,7 +52,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v5
         with:
           distribution: goreleaser
-          version: 1.21.9
+          version: latest
           workdir: cmd/hof
           args: release --clean -f goreleaser.yml -p 1
         env:
