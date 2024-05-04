@@ -37,6 +37,12 @@ const EvalHelpText = `
   [lime]Alt-c[-]          copy console logs to clipboard
   [red]Ctrl-Alt-c[-]      close [gold::bi]_[ivory]Hofstadter[-::-] :[
    [red]:q[-]            [darkgray](from the command box)[-]
+  
+  [violet]mac note[-]       you need to set "macOptionAsMeta" to true
+                 open "Preferences: Open Settings (UI)"
+                 search for "macOptions" under terminal
+                 this only effects the VS Code terminal
+                 other terminals may need similar changes
 
 
 [dodgerblue::bu]Overview:[-::-]
