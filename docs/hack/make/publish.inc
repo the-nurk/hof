@@ -15,7 +15,7 @@ hugo.prod: config.yaml
 	@rm -rf dist
 	@hugo --baseURL https://docs.hofstadter.io/ -d dist
 image.prod:
-	@docker build --no-cache -f ci/Dockerfile -t us.gcr.io/$(PROJECT)/docs.hofstadter.io:$(TAG) .
+	@docker build --platform linux/amd64 --no-cache -f ci/Dockerfile -t us.gcr.io/$(PROJECT)/docs.hofstadter.io:$(TAG) .
 push.prod:
 	@docker push us.gcr.io/$(PROJECT)/docs.hofstadter.io:$(TAG)
 
