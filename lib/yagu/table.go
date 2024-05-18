@@ -1,4 +1,4 @@
-package cmd
+package yagu
 
 import (
 	"os"
@@ -6,7 +6,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
-func defaultTableFormat(table *tablewriter.Table) {
+func DefaultTableFormat(table *tablewriter.Table) {
 	table.SetAutoWrapText(false)
 	table.SetAutoFormatHeaders(true)
 	table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
@@ -20,13 +20,13 @@ func defaultTableFormat(table *tablewriter.Table) {
 	table.SetNoWhiteSpace(true)
 }
 
-type dataPrinter func(table *tablewriter.Table) ([][]string, error)
+type DataPrinter func(table *tablewriter.Table) ([][]string, error)
 
-func printAsTable(headers []string, printer dataPrinter) error {
+func PrintAsTable(headers []string, printer DataPrinter) error {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader(headers)
 
-	defaultTableFormat(table)
+	DefaultTableFormat(table)
 
 	rows, err := printer(table)
 	if err != nil {
