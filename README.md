@@ -14,7 +14,7 @@ __`hof` is a CLI tool you *add* to your workflow.__
 | Core Features | |
 |:---                    |:-- |
 | __code generation__    | Data + templates = _ (anything), technology agnostic |
-| __data model__         | Define and manage data models, life-cycle features |
+| __data modeling__      | Define, checkpoint, and diff data models |
 | __task engine__        | Extensible task and DAG workflow engine |
 | __CUE cmds__           | Core def, eval, export, and vet commands |
 | __creators__           | bootstraping and starter kits from any repo |
@@ -39,7 +39,7 @@ Learn more about CUE: [cuelang.org](https://cuelang.org) | [cuetorials.com](http
 Please see __[docs.hofstadter.io](https://docs.hofstadter.io)__ to learn more.
 
 The [getting-started](https://docs.hofstadter.io/getting-started/) section will take you on a tour of hof.
-The [first-example](https://docs.hofstadter.io/first-example/) section shows you how to build and use a generator.
+The [the-walkthrough](https://docs.hofstadter.io/the-walkthrough/) section shows you how to build and use a generator.
 
 Join us or ask questions on
 

@@ -20,7 +20,7 @@ so must our code.
 - generate language types, database tables, libraries, API handlers, and more
 - checkpoint the data model and maintain a history for version transforms and migrations
 
-This section expands on our `simple-server` to use `hof/dm.#Datamodel`.
+This section expands on our `simple-server` to use `hof/dm.Datamodel`.
 We will first
 
 1. Create a todo application data model
@@ -36,10 +36,10 @@ After we will see `hof`'s code _regeneration_ capabilities by
 1. See how `hof` fits into typical application development
 
 Finally, we will look at how to upgrade our generator to use a database.
-Automatic migrations are covered in the [model history section](/first-example/model-history/).
+Automatic migrations are covered in the [model history section](/the-walkthrough/model-history/).
 
 The full code for this section can be found on GitHub
-[code/first-example/data-layer](https://github.com/hofstadter-io/hof-docs/tree/main/code/first-example/data-layer)
+[code/the-walkthrough/data-layer](https://github.com/hofstadter-io/hof/tree/_dev/docs/code/the-walkthrough/data-layer)
 
 _Database storage and automatic CRUD handler generation
 will be covered in more advanced sections._

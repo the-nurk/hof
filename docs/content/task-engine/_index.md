@@ -1,8 +1,6 @@
 ---
 title: Task Engine
 weight: 50
-
-draft: true
 ---
 
 {{<lead>}}
@@ -16,22 +14,18 @@ as they are ready or needed.
 {{</lead>}}
 
 
-
----
-
 {{< childpages >}}
 
 
----
+### Attributes
 
-{{<lead>}}
-`hof/flow` is a data and task engine
-with automatic dependency detection
-powered by `cue/flow`.
-It has more task types and capabilities.
-{{</lead>}}
+`@flow()`: useful for a single, unnamed workflow
 
-{{< childpages >}}
+`@flow(<name>)`: write and call one or more flows by name
+
+`@task(<pkg.Func>)`: a workflow step of type `<pkg.Func>`
+
+`@print(<cue.path>)`: output values to log for debugging
 
 ### Command Help
 

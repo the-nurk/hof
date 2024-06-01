@@ -23,8 +23,25 @@ Hof's task engine is an extension of cue/flow with
 {{</lead>}}
 
 
-## Overview
+### Example
 
+<br>
+
+A workflow for calling an LLM from the command line.
+
+{{<codePane title="hof flow vertex.cue -t msg='What is the CUE language?'" file="code/getting-started/task-engine/vertex.html" >}}
+
+<br>
+
+Wrapping the workflow in an API server.
+
+`hof flow @server` (with both CUE files in the same directory, we can omit the filenames)
+
+{{<codePane title="server.cue" file="code/getting-started/task-engine/server.html" >}}
+
+<br>
+
+We now have a workflow we can call from the CLI or as an API.
 
 ### Command
 

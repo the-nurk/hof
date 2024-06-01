@@ -36,7 +36,7 @@ ad-hoc and a more sophisticated configuration or module-based method.
 
 
 In this section, we will explore the ad-hoc method which used the `-T` flag.
-The [first example](/first-example/) is a step-by-step guide
+The [first example](/the-walkthrough/) is a step-by-step guide
 on creating a generator using CUE based configuration.
 The [getting-started/create](/getting-started/create/) section
 will introduce `hof create`, which enables running generators directly from git repositories.
@@ -119,6 +119,9 @@ from the output file extension
 {{<codeInner title="> terminal" lang="sh">}}
 # full value to a single data file
 $ hof gen data.cue schema.cue -T =data.yaml
+
+# convert between data formats
+$ hof gen data.json -T =data.yaml
 
 # data file per item in iterable value
 $ hof gen data.cue schema.cue \
@@ -328,24 +331,29 @@ You can find more examples in the
 
 
 
-## What are Generators and Modules
+## Generators and Modules
 
 
-Generators are configurations for the `hof gen` flag, typically defined
-in CUE modules or Git repositories. 
+Hof Generators are CUE code that define a `hof gen` command,
+defined in CUE modules and shared with Git repositories. 
 
-To turn your ad-hoc `hof gen ... -T ...` commands into a generator, 
-add `--as-module <module name>` to the end of your current flag.
+Turn any ad-hoc `hof gen ... -T ...` args and flags into a generator by
+adding `--as-module <module name>` to the end.
+This will generate the equivalent CUE code version for the command.
+You can now run `hof gen
 
 
-{{<codeInner title="> terminal">}}
+{{<codeInner title="> terminal" lang="shell">}}
+# turn command into foo module
 $ hof gen ... --as-module github.com/username/foo
+
+# run generator without remembering flags
+$ hof gen [-G <name>]
 {{</codeInner>}}
 
 Several files are generated, including a CUE file that houses your generator and additional files for configuring a CUE module.
 
 {{<codePane file="code/getting-started/code-generation/adhoc-mod-snippet.html" title="generator.cue snippet">}}
 
-The next page will provide an overview of modules in general,
-and the [first-example](/first-example/) offers detailed instructions for creating a generator from scratch.
-
+The next page will cover modules in general
+and the [the-walkthrough](/the-walkthrough/) is a walkthrough on creating a full-stack application generator from scratch.
