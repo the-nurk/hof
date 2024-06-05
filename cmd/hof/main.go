@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	os.Setenv("CUE_EXPERIMENT", "modules=0")
+	os.Setenv("CUE_EXPERIMENT", "evalv3,modules=0")
 
 	cmd.RunExit()
 }
