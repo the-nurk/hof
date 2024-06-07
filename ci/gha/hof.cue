@@ -57,7 +57,7 @@ ghacue.#Workflow & {
 				name: "Start Formatters"
 				run: """
 					docker images
-					hof fmt start @v0.6.8
+					hof fmt start @v0.6.9
 					hof fmt info
 					docker ps -a
 					"""

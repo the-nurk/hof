@@ -16,9 +16,9 @@ github: workflow devcontainer
 workflows = $(addprefix workflow_, $(GHA_FILES))
 workflow: $(workflows)
 $(workflows): workflow_%:
-	@cue export --out yaml $(subst workflow_,,$@) -f -o $(subst ci/gha,.github/workflows,$(subst workflow_,,$(subst .cue,,$@))).yml
+	@hof export --out yaml $(subst workflow_,,$@) -o $(subst ci/gha,.github/workflows,$(subst workflow_,,$(subst .cue,,$@))).yml
 devcontainer: ci/devc/devcontainer.cue
-	@cue export ci/devc/devcontainer.cue -f -o .devcontainer/devcontainer.json
+	@hof export ci/devc/devcontainer.cue -o .devcontainer/devcontainer.json
 
 .PHONY: hack 
 hack:
