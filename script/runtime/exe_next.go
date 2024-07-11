@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.18
+//go:build go1.23
 
 package runtime
 
@@ -64,4 +64,8 @@ func runCoverSubcommand(cprof string, mainf func() int) (exitCode int) {
 		}
 	}()
 	return mainf()
+}
+
+func (nopTestDeps) InitRuntimeCoverage() (mode string, tearDown func(string, string) (string, error), snapcov func() float64) {
+	return
 }
