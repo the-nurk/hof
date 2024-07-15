@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build !go1.18
+//go:build !go1.23
 
 package runtime
 
@@ -49,7 +49,7 @@ func runCoverSubcommand(cprof string, mainf func() int) (exitCode int) {
 		// Run MainStart (recursively, but it we should be ok) with no tests
 		// so that it writes the coverage profile.
 		// go1.18 -- m := testing.MainStart(nopTestDeps{}, nil, nil, nil, nil)
-		m := testing.MainStart(nopTestDeps{}, nil, nil, nil)
+		m := testing.MainStart(nopTestDeps{}, nil, nil, nil, nil)
 		if code := m.Run(); code != 0 && exitCode == 0 {
 			exitCode = code
 		}

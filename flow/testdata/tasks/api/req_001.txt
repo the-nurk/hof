@@ -35,7 +35,12 @@ tasks: {
   mask: {
     @task(st.Mask)
     val: call.resp.body
-    mask: { headers: "x-amzn-trace-id": string }
+    mask: { 
+      headers: {
+        "x-amzn-trace-id": string
+        "x-request-start": string
+      }
+    }
   }
 	out: { text: json.Indent(json.Marshal(mask.out), "", "  ") +"\n" } @task(os.Stdout)
 }
@@ -46,9 +51,9 @@ tasks: {
     "cow": "moo"
   },
   "headers": {
+    "host": "postman-echo.com",
     "x-forwarded-proto": "https",
     "x-forwarded-port": "443",
-    "host": "postman-echo.com",
     "accept-encoding": "gzip",
     "user-agent": "Go-http-client/2.0"
   },
