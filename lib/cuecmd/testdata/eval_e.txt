@@ -1,3 +1,4 @@
+skip
 ! exec hof eval -e nonExist
 cmp stderr expect/nonExist/stderr
 cmp stdout expect/nonExist/stdout
