@@ -21,9 +21,9 @@ func (T *Patch) Run(ctx *hofcontext.Context) (interface{}, error) {
 	v := ctx.Value
 
 	o := v.LookupPath(cue.ParsePath("orig"))
-	n := v.LookupPath(cue.ParsePath("patch"))
+	p := v.LookupPath(cue.ParsePath("patch"))
 
-	r, err := structural.PatchValue(o, n, nil)
+	r, err := structural.PatchValue(p, o, nil)
 	if err != nil {
 		return nil, err
 	}
